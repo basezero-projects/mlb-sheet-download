@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WNBA Parlay Board 2026-06-24</title>
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: #111c2e;
+      --panel-2: #16243a;
+      --line: rgba(255,255,255,.14);
+      --text: #f8fafc;
+      --muted: #a8b3c7;
+      --blue: #38bdf8;
+      --green: #39d98a;
+      --amber: #f6c85f;
+      --red: #ff6b6b;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #142542 0, #08111f 42%, #040812 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+    .page {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 16px;
+    }
+    header {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(56,189,248,.2), rgba(57,217,138,.12));
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    .eyebrow {
+      color: var(--amber);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    h1 {
+      margin: 4px 0 6px;
+      font-size: clamp(30px, 7vw, 58px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+    .slate {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .game {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: rgba(17,28,46,.82);
+    }
+    .game strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+    section {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(17,28,46,.88);
+      overflow: hidden;
+    }
+    section h2 {
+      margin: 0;
+      padding: 9px 10px;
+      font-size: 14px;
+      text-transform: uppercase;
+      background: rgba(56,189,248,.16);
+      border-bottom: 1px solid var(--line);
+    }
+    .player {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      gap: 9px;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      min-width: 0;
+    }
+    .player:last-child { border-bottom: 0; }
+    .headshot {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #22304a;
+      border: 1px solid var(--line);
+    }
+    .player-name {
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 1.1;
+      overflow-wrap: anywhere;
+    }
+    .team-line, .detail-line {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .score {
+      color: var(--green);
+      font-weight: 900;
+    }
+    .odds {
+      color: var(--amber);
+      font-weight: 800;
+    }
+    .strip {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(10, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .strip-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px;
+      background: rgba(22,36,58,.86);
+      min-width: 0;
+    }
+    .rank {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .strip-card strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+    footer {
+      margin-top: 14px;
+      padding: 12px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .empty {
+      padding: 12px;
+      color: var(--muted);
+    }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+      .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .page { padding: 10px; }
+      header { padding: 14px; }
+      h1 { font-size: 30px; line-height: 1.05; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">Betting OS</div>
+      <h1>WNBA Parlay Board</h1>
+      <div class="meta">
+        <span class="pill">2026-06-24</span>
+        <span class="pill">4 games</span>
+        <span class="pill">90 active players ranked</span>
+        <span class="pill">16 injury exclusions</span>
+        <span class="pill">0 raw odds rows</span>
+      </div>
+    </header>
+    <div class="slate"><article class="game">
+  <strong>Phoenix Mercury at Indiana Fever</strong>
+  <div class="detail-line">5:30 PM MT · Scheduled</div>
+  <div class="detail-line">Gainbridge Fieldhouse, Indianapolis</div>
+</article>
+<article class="game">
+  <strong>Minnesota Lynx at Washington Mystics</strong>
+  <div class="detail-line">5:30 PM MT · Scheduled</div>
+  <div class="detail-line">CareFirst Arena, Washington</div>
+</article>
+<article class="game">
+  <strong>Portland Fire at Chicago Sky</strong>
+  <div class="detail-line">6:00 PM MT · Scheduled</div>
+  <div class="detail-line">Wintrust Arena, Chicago</div>
+</article>
+<article class="game">
+  <strong>Atlanta Dream at Golden State Valkyries</strong>
+  <div class="detail-line">8:00 PM MT · Scheduled</div>
+  <div class="detail-line">Chase Center, San Francisco</div>
+</article></div>
+    <div class="grid"><section><h2>Top Targets</h2><div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529140.png" alt="">
+  <div>
+    <div class="player-name">Alyssa Thomas</div>
+    <div class="team-line">Phoenix Mercury vs Indiana Fever · Away</div>
+    <div class="detail-line"><span class="score">Score 100</span></div>
+    <div class="detail-line">14.1 PTS · 6.7 REB · 8.4 AST · 33.4 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4398674.png" alt="">
+  <div>
+    <div class="player-name">Rhyne Howard</div>
+    <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
+    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="detail-line">19.1 PTS · 3.9 REB · 3.3 AST · 34.9 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter, PRA volume, 3PT volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4433524.png" alt="">
+  <div>
+    <div class="player-name">Sonia Citron</div>
+    <div class="team-line">Washington Mystics vs Minnesota Lynx · Home</div>
+    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="detail-line">17.6 PTS · 3.9 REB · 3.6 AST · 33.6 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3058901.png" alt="">
+  <div>
+    <div class="player-name">Allisha Gray</div>
+    <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
+    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="detail-line">19.5 PTS · 3.4 REB · 2.2 AST · 33.3 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3142191.png" alt="">
+  <div>
+    <div class="player-name">Kelsey Mitchell</div>
+    <div class="team-line">Indiana Fever vs Phoenix Mercury · Home</div>
+    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="detail-line">20.9 PTS · 1.5 REB · 2.5 AST · 32.5 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter, 3PT volume</div>
+  </div>
+</div></section>
+<section><h2>Points</h2><div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2998938.png" alt="">
+  <div>
+    <div class="player-name">Kahleah Copper</div>
+    <div class="team-line">Phoenix Mercury vs Indiana Fever · Away</div>
+    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="detail-line">19.2 PTS · 3.6 REB · 1.8 AST · 32.3 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4433402.png" alt="">
+  <div>
+    <div class="player-name">Angel Reese</div>
+    <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
+    <div class="detail-line"><span class="score">Score 98</span></div>
+    <div class="detail-line">15.0 PTS · 11.8 REB · 2.7 AST · 30.4 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2987891.png" alt="">
+  <div>
+    <div class="player-name">Courtney Williams</div>
+    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
+    <div class="detail-line"><span class="score">Score 97</span></div>
+    <div class="detail-line">16.7 PTS · 5.5 REB · 4.1 AST · 30.4 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4433791.png" alt="">
+  <div>
+    <div class="player-name">Olivia Miles</div>
+    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
+    <div class="detail-line"><span class="score">Score 97</span></div>
+    <div class="detail-line">18.5 PTS · 4.9 REB · 5.6 AST · 30.4 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529205.png" alt="">
+  <div>
+    <div class="player-name">Kayla McBride</div>
+    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
+    <div class="detail-line"><span class="score">Score 95</span></div>
+    <div class="detail-line">14.2 PTS · 4.0 REB · 2.6 AST · 30.7 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter</div>
+  </div>
+</div></section>
+<section><h2>Boards</h2><div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529130.png" alt="">
+  <div>
+    <div class="player-name">Natasha Howard</div>
+    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
+    <div class="detail-line"><span class="score">Score 95</span></div>
+    <div class="detail-line">17.3 PTS · 7.4 REB · 2.9 AST · 29.0 MIN</div>
+    <div class="detail-line">stable starter, PRA volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4398911.png" alt="">
+  <div>
+    <div class="player-name">Shakira Austin</div>
+    <div class="team-line">Washington Mystics vs Minnesota Lynx · Home</div>
+    <div class="detail-line"><span class="score">Score 94</span></div>
+    <div class="detail-line">13.9 PTS · 8.2 REB · 2.8 AST · 28.4 MIN</div>
+    <div class="detail-line">stable starter</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4432831.png" alt="">
+  <div>
+    <div class="player-name">Aliyah Boston</div>
+    <div class="team-line">Indiana Fever vs Phoenix Mercury · Home</div>
+    <div class="detail-line"><span class="score">Score 92</span></div>
+    <div class="detail-line">16.6 PTS · 8.6 REB · 2.8 AST · 26.8 MIN</div>
+    <div class="detail-line">stable starter, PRA volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4433405.png" alt="">
+  <div>
+    <div class="player-name">Kamilla Cardoso</div>
+    <div class="team-line">Chicago Sky vs Portland Fire · Home</div>
+    <div class="detail-line"><span class="score">Score 90</span></div>
+    <div class="detail-line">13.1 PTS · 8.7 REB · 2.4 AST · 26.6 MIN</div>
+    <div class="detail-line">stable starter</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4898384.png" alt="">
+  <div>
+    <div class="player-name">Kiki Iriafen</div>
+    <div class="team-line">Washington Mystics vs Minnesota Lynx · Home</div>
+    <div class="detail-line"><span class="score">Score 90</span></div>
+    <div class="detail-line">15.2 PTS · 8.5 REB · 1.3 AST · 25.8 MIN</div>
+    <div class="detail-line">stable starter, PRA volume</div>
+  </div>
+</div></section>
+<section><h2>Guards/Threes</h2><div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3142250.png" alt="">
+  <div>
+    <div class="player-name">Jordin Canada</div>
+    <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
+    <div class="detail-line"><span class="score">Score 95</span></div>
+    <div class="detail-line">11.2 PTS · 3.6 REB · 7.4 AST · 30.1 MIN</div>
+    <div class="detail-line">heavy minutes, stable starter</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2491205.png" alt="">
+  <div>
+    <div class="player-name">Skylar Diggins</div>
+    <div class="team-line">Chicago Sky vs Portland Fire · Home</div>
+    <div class="detail-line"><span class="score">Score 94</span></div>
+    <div class="detail-line">14.5 PTS · 3.1 REB · 4.6 AST · 29.5 MIN</div>
+    <div class="detail-line">stable starter</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3906972.png" alt="">
+  <div>
+    <div class="player-name">Bridget Carleton</div>
+    <div class="team-line">Portland Fire vs Chicago Sky · Away</div>
+    <div class="detail-line"><span class="score">Score 92</span></div>
+    <div class="detail-line">13.8 PTS · 3.3 REB · 1.8 AST · 29.2 MIN</div>
+    <div class="detail-line">stable starter, 3PT volume</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4398935.png" alt="">
+  <div>
+    <div class="player-name">Veronica Burton</div>
+    <div class="team-line">Golden State Valkyries vs Atlanta Dream · Home</div>
+    <div class="detail-line"><span class="score">Score 92</span></div>
+    <div class="detail-line">12.8 PTS · 3.5 REB · 5.4 AST · 28.4 MIN</div>
+    <div class="detail-line">stable starter</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3142328.png" alt="">
+  <div>
+    <div class="player-name">Gabby Williams</div>
+    <div class="team-line">Golden State Valkyries vs Atlanta Dream · Home</div>
+    <div class="detail-line"><span class="score">Score 90</span></div>
+    <div class="detail-line">15.9 PTS · 3.8 REB · 2.2 AST · 26.5 MIN</div>
+    <div class="detail-line">stable starter</div>
+  </div>
+</div></section>
+<section><h2>Odds Value</h2><p class='empty'>No qualified players.</p></section></div>
+    <div class="strip"><article class="strip-card">
+  <div class="rank">#1 · 100</div>
+  <strong>Alyssa Thomas</strong>
+  <div class="detail-line">Phoenix Mercury</div>
+  <div class="detail-line">29.2 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#2 · 99</div>
+  <strong>Rhyne Howard</strong>
+  <div class="detail-line">Atlanta Dream</div>
+  <div class="detail-line">26.4 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#3 · 99</div>
+  <strong>Sonia Citron</strong>
+  <div class="detail-line">Washington Mystics</div>
+  <div class="detail-line">25.0 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#4 · 99</div>
+  <strong>Allisha Gray</strong>
+  <div class="detail-line">Atlanta Dream</div>
+  <div class="detail-line">25.1 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#5 · 99</div>
+  <strong>Kelsey Mitchell</strong>
+  <div class="detail-line">Indiana Fever</div>
+  <div class="detail-line">24.8 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#6 · 99</div>
+  <strong>Kahleah Copper</strong>
+  <div class="detail-line">Phoenix Mercury</div>
+  <div class="detail-line">24.6 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#7 · 98</div>
+  <strong>Angel Reese</strong>
+  <div class="detail-line">Atlanta Dream</div>
+  <div class="detail-line">29.4 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#8 · 97</div>
+  <strong>Courtney Williams</strong>
+  <div class="detail-line">Minnesota Lynx</div>
+  <div class="detail-line">26.4 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#9 · 97</div>
+  <strong>Olivia Miles</strong>
+  <div class="detail-line">Minnesota Lynx</div>
+  <div class="detail-line">29.1 PRA</div>
+</article>
+<article class="strip-card">
+  <div class="rank">#10 · 95</div>
+  <strong>Kayla McBride</strong>
+  <div class="detail-line">Minnesota Lynx</div>
+  <div class="detail-line">20.9 PRA</div>
+</article></div>
+    <footer>
+      Injured/listed players are removed before ranking. Odds are display-only and depend on The Odds API or local CSV availability. Check current sportsbook lines before placing any bet.
+    </footer>
+  </main>
+</body>
+</html>
