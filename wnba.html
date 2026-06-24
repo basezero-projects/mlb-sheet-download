@@ -19,17 +19,22 @@
       --purple: #c084fc;
     }
     * { box-sizing: border-box; }
+    html { overflow-x: hidden; }
     body {
       margin: 0;
       background: radial-gradient(circle at top, #142542 0, #08111f 42%, #040812 100%);
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       letter-spacing: 0;
+      overflow-x: hidden;
+      max-width: 100vw;
     }
     .page {
       width: min(1180px, 100%);
+      max-width: 100vw;
       margin: 0 auto;
       padding: 16px;
+      overflow-x: hidden;
     }
     header {
       border: 1px solid var(--line);
@@ -63,12 +68,31 @@
       padding: 5px 9px;
       background: rgba(255,255,255,.06);
       color: var(--text);
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
     .slate {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 10px;
       margin-bottom: 14px;
+    }
+    .decision-guide {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(246,200,95,.12);
+      padding: 11px 12px;
+      margin-bottom: 14px;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+    .decision-guide strong {
+      color: var(--amber);
+      display: block;
+      margin-bottom: 3px;
+      max-width: 100%;
     }
     .game {
       border: 1px solid var(--line);
@@ -135,6 +159,32 @@
       color: var(--green);
       font-weight: 900;
     }
+    .bet-pick {
+      margin-top: 5px;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+    .action-line {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .status-badge {
+      display: inline-block;
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+    .status-playable { background: rgba(57,217,138,.18); color: var(--green); border: 1px solid rgba(57,217,138,.5); }
+    .status-check { background: rgba(246,200,95,.15); color: var(--amber); border: 1px solid rgba(246,200,95,.48); }
+    .status-pass { background: rgba(255,107,107,.15); color: var(--red); border: 1px solid rgba(255,107,107,.45); }
     .odds {
       color: var(--amber);
       font-weight: 800;
@@ -173,13 +223,20 @@
     .empty {
       padding: 12px;
       color: var(--muted);
+      overflow-wrap: anywhere;
     }
     @media (max-width: 920px) {
       .grid { grid-template-columns: 1fr; }
       .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .page { padding: 10px; }
+      header, .decision-guide, .game, section, .strip-card { max-width: calc(100vw - 20px); }
       header { padding: 14px; }
       h1 { font-size: 30px; line-height: 1.05; }
+      .meta { gap: 7px; }
+      .pill { font-size: 12px; }
+      .bet-pick { display: block; }
+      .status-badge { margin-bottom: 3px; }
+      .player > div { min-width: 0; max-width: 100%; }
     }
   </style>
 </head>
@@ -194,8 +251,14 @@
         <span class="pill">90 active players ranked</span>
         <span class="pill">16 injury exclusions</span>
         <span class="pill">0 raw odds rows</span>
+        <span class="pill">0 playable now</span>
+        <span class="pill">90 need line check</span>
       </div>
     </header>
+    <div class="decision-guide">
+      <strong>No playable props yet because live odds are not connected.</strong>
+      <span>Signal ranks strength. Bet rows show the prop and max line.</span>
+    </div>
     <div class="slate"><article class="game">
   <strong>Phoenix Mercury at Indiana Fever</strong>
   <div class="detail-line">5:30 PM MT · Scheduled</div>
@@ -216,14 +279,16 @@
   <div class="detail-line">8:00 PM MT · Scheduled</div>
   <div class="detail-line">Chase Center, San Francisco</div>
 </article></div>
-    <div class="grid"><section><h2>Top Targets</h2><div class="player">
+    <div class="grid"><section><h2>Playable Now</h2><p class='empty'>No playable props yet. Use CHECK LINE rows.</p></section>
+<section><h2>Best Checks</h2><div class="player">
   <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529140.png" alt="">
   <div>
     <div class="player-name">Alyssa Thomas</div>
     <div class="team-line">Phoenix Mercury vs Indiana Fever · Away</div>
-    <div class="detail-line"><span class="score">Score 100</span></div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> PRA Over &lt;= 28.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 28.5.</div>
+    <div class="detail-line"><span class="score">Signal 100</span> · 33.4 MIN, 29.2 PRA, stable starter, signal 100</div>
     <div class="detail-line">14.1 PTS · 6.7 REB · 8.4 AST · 33.4 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
   </div>
 </div>
 <div class="player">
@@ -231,9 +296,10 @@
   <div>
     <div class="player-name">Rhyne Howard</div>
     <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
-    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> PRA Over &lt;= 25.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 25.5.</div>
+    <div class="detail-line"><span class="score">Signal 99</span> · 34.9 MIN, 26.4 PRA, stable starter, signal 99</div>
     <div class="detail-line">19.1 PTS · 3.9 REB · 3.3 AST · 34.9 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter, PRA volume, 3PT volume</div>
   </div>
 </div>
 <div class="player">
@@ -241,9 +307,10 @@
   <div>
     <div class="player-name">Sonia Citron</div>
     <div class="team-line">Washington Mystics vs Minnesota Lynx · Home</div>
-    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> PRA Over &lt;= 24</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 24.</div>
+    <div class="detail-line"><span class="score">Signal 99</span> · 33.6 MIN, 25.0 PRA, stable starter, signal 99</div>
     <div class="detail-line">17.6 PTS · 3.9 REB · 3.6 AST · 33.6 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter</div>
   </div>
 </div>
 <div class="player">
@@ -251,9 +318,10 @@
   <div>
     <div class="player-name">Allisha Gray</div>
     <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
-    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> PRA Over &lt;= 24.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 24.5.</div>
+    <div class="detail-line"><span class="score">Signal 99</span> · 33.3 MIN, 25.1 PRA, stable starter, signal 99</div>
     <div class="detail-line">19.5 PTS · 3.4 REB · 2.2 AST · 33.3 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
   </div>
 </div>
 <div class="player">
@@ -261,221 +329,203 @@
   <div>
     <div class="player-name">Kelsey Mitchell</div>
     <div class="team-line">Indiana Fever vs Phoenix Mercury · Home</div>
-    <div class="detail-line"><span class="score">Score 99</span></div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> PRA Over &lt;= 24</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 24.</div>
+    <div class="detail-line"><span class="score">Signal 99</span> · 32.5 MIN, 24.8 PRA, stable starter, signal 99</div>
     <div class="detail-line">20.9 PTS · 1.5 REB · 2.5 AST · 32.5 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter, 3PT volume</div>
   </div>
 </div></section>
-<section><h2>Points</h2><div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2998938.png" alt="">
-  <div>
-    <div class="player-name">Kahleah Copper</div>
-    <div class="team-line">Phoenix Mercury vs Indiana Fever · Away</div>
-    <div class="detail-line"><span class="score">Score 99</span></div>
-    <div class="detail-line">19.2 PTS · 3.6 REB · 1.8 AST · 32.3 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4433402.png" alt="">
-  <div>
-    <div class="player-name">Angel Reese</div>
-    <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
-    <div class="detail-line"><span class="score">Score 98</span></div>
-    <div class="detail-line">15.0 PTS · 11.8 REB · 2.7 AST · 30.4 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2987891.png" alt="">
-  <div>
-    <div class="player-name">Courtney Williams</div>
-    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
-    <div class="detail-line"><span class="score">Score 97</span></div>
-    <div class="detail-line">16.7 PTS · 5.5 REB · 4.1 AST · 30.4 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4433791.png" alt="">
-  <div>
-    <div class="player-name">Olivia Miles</div>
-    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
-    <div class="detail-line"><span class="score">Score 97</span></div>
-    <div class="detail-line">18.5 PTS · 4.9 REB · 5.6 AST · 30.4 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter, PRA volume</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529205.png" alt="">
-  <div>
-    <div class="player-name">Kayla McBride</div>
-    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
-    <div class="detail-line"><span class="score">Score 95</span></div>
-    <div class="detail-line">14.2 PTS · 4.0 REB · 2.6 AST · 30.7 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter</div>
-  </div>
-</div></section>
-<section><h2>Boards</h2><div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529130.png" alt="">
-  <div>
-    <div class="player-name">Natasha Howard</div>
-    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
-    <div class="detail-line"><span class="score">Score 95</span></div>
-    <div class="detail-line">17.3 PTS · 7.4 REB · 2.9 AST · 29.0 MIN</div>
-    <div class="detail-line">stable starter, PRA volume</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4398911.png" alt="">
-  <div>
-    <div class="player-name">Shakira Austin</div>
-    <div class="team-line">Washington Mystics vs Minnesota Lynx · Home</div>
-    <div class="detail-line"><span class="score">Score 94</span></div>
-    <div class="detail-line">13.9 PTS · 8.2 REB · 2.8 AST · 28.4 MIN</div>
-    <div class="detail-line">stable starter</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4432831.png" alt="">
-  <div>
-    <div class="player-name">Aliyah Boston</div>
-    <div class="team-line">Indiana Fever vs Phoenix Mercury · Home</div>
-    <div class="detail-line"><span class="score">Score 92</span></div>
-    <div class="detail-line">16.6 PTS · 8.6 REB · 2.8 AST · 26.8 MIN</div>
-    <div class="detail-line">stable starter, PRA volume</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4433405.png" alt="">
-  <div>
-    <div class="player-name">Kamilla Cardoso</div>
-    <div class="team-line">Chicago Sky vs Portland Fire · Home</div>
-    <div class="detail-line"><span class="score">Score 90</span></div>
-    <div class="detail-line">13.1 PTS · 8.7 REB · 2.4 AST · 26.6 MIN</div>
-    <div class="detail-line">stable starter</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4898384.png" alt="">
-  <div>
-    <div class="player-name">Kiki Iriafen</div>
-    <div class="team-line">Washington Mystics vs Minnesota Lynx · Home</div>
-    <div class="detail-line"><span class="score">Score 90</span></div>
-    <div class="detail-line">15.2 PTS · 8.5 REB · 1.3 AST · 25.8 MIN</div>
-    <div class="detail-line">stable starter, PRA volume</div>
-  </div>
-</div></section>
-<section><h2>Guards/Threes</h2><div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3142250.png" alt="">
-  <div>
-    <div class="player-name">Jordin Canada</div>
-    <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
-    <div class="detail-line"><span class="score">Score 95</span></div>
-    <div class="detail-line">11.2 PTS · 3.6 REB · 7.4 AST · 30.1 MIN</div>
-    <div class="detail-line">heavy minutes, stable starter</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2491205.png" alt="">
-  <div>
-    <div class="player-name">Skylar Diggins</div>
-    <div class="team-line">Chicago Sky vs Portland Fire · Home</div>
-    <div class="detail-line"><span class="score">Score 94</span></div>
-    <div class="detail-line">14.5 PTS · 3.1 REB · 4.6 AST · 29.5 MIN</div>
-    <div class="detail-line">stable starter</div>
-  </div>
-</div>
-<div class="player">
+<section><h2>Points Over</h2><div class="player">
   <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3906972.png" alt="">
   <div>
     <div class="player-name">Bridget Carleton</div>
     <div class="team-line">Portland Fire vs Chicago Sky · Away</div>
-    <div class="detail-line"><span class="score">Score 92</span></div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Points Over &lt;= 13</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 13.</div>
+    <div class="detail-line"><span class="score">Signal 92</span> · 29.2 MIN, 13.8 PTS, stable starter, signal 92</div>
     <div class="detail-line">13.8 PTS · 3.3 REB · 1.8 AST · 29.2 MIN</div>
-    <div class="detail-line">stable starter, 3PT volume</div>
   </div>
 </div>
 <div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4398935.png" alt="">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4790264.png" alt="">
   <div>
-    <div class="player-name">Veronica Burton</div>
+    <div class="player-name">Janelle Salaun</div>
     <div class="team-line">Golden State Valkyries vs Atlanta Dream · Home</div>
-    <div class="detail-line"><span class="score">Score 92</span></div>
-    <div class="detail-line">12.8 PTS · 3.5 REB · 5.4 AST · 28.4 MIN</div>
-    <div class="detail-line">stable starter</div>
-  </div>
-</div>
-<div class="player">
-  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3142328.png" alt="">
-  <div>
-    <div class="player-name">Gabby Williams</div>
-    <div class="team-line">Golden State Valkyries vs Atlanta Dream · Home</div>
-    <div class="detail-line"><span class="score">Score 90</span></div>
-    <div class="detail-line">15.9 PTS · 3.8 REB · 2.2 AST · 26.5 MIN</div>
-    <div class="detail-line">stable starter</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Points Over &lt;= 12</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 12.</div>
+    <div class="detail-line"><span class="score">Signal 72</span> · 23.8 MIN, 13.2 PTS</div>
+    <div class="detail-line">13.2 PTS · 4.1 REB · 1.2 AST · 23.8 MIN</div>
   </div>
 </div></section>
-<section><h2>Odds Value</h2><p class='empty'>No qualified players.</p></section></div>
+<section><h2>Rebounds Over</h2><div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4398915.png" alt="">
+  <div>
+    <div class="player-name">Naz Hillmon</div>
+    <div class="team-line">Atlanta Dream vs Golden State Valkyries · Away</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Rebounds Over &lt;= 4.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 4.5.</div>
+    <div class="detail-line"><span class="score">Signal 89</span> · 31.1 MIN, 5.1 REB, stable starter, signal 89</div>
+    <div class="detail-line">9.9 PTS · 5.1 REB · 1.6 AST · 31.1 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3054590.png" alt="">
+  <div>
+    <div class="player-name">Nia Coffey</div>
+    <div class="team-line">Minnesota Lynx vs Washington Mystics · Away</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Rebounds Over &lt;= 5.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 5.5.</div>
+    <div class="detail-line"><span class="score">Signal 85</span> · 27.2 MIN, 6.1 REB, stable starter, signal 85</div>
+    <div class="detail-line">9.2 PTS · 6.1 REB · 2.2 AST · 27.2 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529622.png" alt="">
+  <div>
+    <div class="player-name">Kayla Thornton</div>
+    <div class="team-line">Golden State Valkyries vs Atlanta Dream · Home</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Rebounds Over &lt;= 4.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 4.5.</div>
+    <div class="detail-line"><span class="score">Signal 78</span> · 26.0 MIN, 5.5 REB, stable starter</div>
+    <div class="detail-line">8.3 PTS · 5.5 REB · 0.8 AST · 26.0 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3142010.png" alt="">
+  <div>
+    <div class="player-name">Azura Stevens</div>
+    <div class="team-line">Chicago Sky vs Portland Fire · Home</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Rebounds Over &lt;= 5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 5.</div>
+    <div class="detail-line"><span class="score">Signal 71</span> · 21.3 MIN, 5.9 REB, stable starter</div>
+    <div class="detail-line">9.2 PTS · 5.9 REB · 1.9 AST · 21.3 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3142255.png" alt="">
+  <div>
+    <div class="player-name">Monique Billings</div>
+    <div class="team-line">Indiana Fever vs Phoenix Mercury · Home</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Rebounds Over &lt;= 4.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 4.5.</div>
+    <div class="detail-line"><span class="score">Signal 62</span> · 19.9 MIN, 5.1 REB, stable starter</div>
+    <div class="detail-line">6.2 PTS · 5.1 REB · 0.9 AST · 19.9 MIN</div>
+  </div>
+</div></section>
+<section><h2>Assists/Threes</h2><div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/2529137.png" alt="">
+  <div>
+    <div class="player-name">Natasha Cloud</div>
+    <div class="team-line">Chicago Sky vs Portland Fire · Home</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Assists Over &lt;= 3.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 3.5.</div>
+    <div class="detail-line"><span class="score">Signal 79</span> · 27.7 MIN, 4.1 AST</div>
+    <div class="detail-line">9.6 PTS · 3.7 REB · 4.1 AST · 27.7 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4703794.png" alt="">
+  <div>
+    <div class="player-name">Sarah Ashlee Barker</div>
+    <div class="team-line">Portland Fire vs Chicago Sky · Away</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Threes Over &lt;= 1</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 1.</div>
+    <div class="detail-line"><span class="score">Signal 73</span> · 23.8 MIN, 1.5 3PM</div>
+    <div class="detail-line">10.3 PTS · 4.2 REB · 2.4 AST · 23.8 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/4704180.png" alt="">
+  <div>
+    <div class="player-name">Georgia Amoore</div>
+    <div class="team-line">Washington Mystics vs Minnesota Lynx · Home</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Assists Over &lt;= 3.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 3.5.</div>
+    <div class="detail-line"><span class="score">Signal 69</span> · 23.9 MIN, 4.1 AST, stable starter</div>
+    <div class="detail-line">5.9 PTS · 1.1 REB · 4.1 AST · 23.9 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <img class="headshot" src="https://a.espncdn.com/i/headshots/wnba/players/full/3907781.png" alt="">
+  <div>
+    <div class="player-name">Sophie Cunningham</div>
+    <div class="team-line">Indiana Fever vs Phoenix Mercury · Home</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Threes Over &lt;= 1.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 1.5.</div>
+    <div class="detail-line"><span class="score">Signal 64</span> · 23.4 MIN, 1.8 3PM</div>
+    <div class="detail-line">9.9 PTS · 2.8 REB · 1.5 AST · 23.4 MIN</div>
+  </div>
+</div>
+<div class="player">
+  <div class="headshot"></div>
+  <div>
+    <div class="player-name">Jordan Harrison</div>
+    <div class="team-line">Portland Fire vs Chicago Sky · Away</div>
+    <div class="bet-pick"><span class="status-badge status-check">CHECK LINE</span> Assists Over &lt;= 3.5</div>
+    <div class="action-line">No live odds. Take only if line &lt;= 3.5.</div>
+    <div class="detail-line"><span class="score">Signal 31</span> · 11.0 MIN, 4.0 AST</div>
+    <div class="detail-line">4.0 PTS · 0.0 REB · 4.0 AST · 11.0 MIN</div>
+  </div>
+</div></section></div>
     <div class="strip"><article class="strip-card">
-  <div class="rank">#1 · 100</div>
+  <div class="rank">#1 · Signal 100</div>
   <strong>Alyssa Thomas</strong>
   <div class="detail-line">Phoenix Mercury</div>
-  <div class="detail-line">29.2 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 28.5</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#2 · 99</div>
+  <div class="rank">#2 · Signal 99</div>
   <strong>Rhyne Howard</strong>
   <div class="detail-line">Atlanta Dream</div>
-  <div class="detail-line">26.4 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 25.5</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#3 · 99</div>
+  <div class="rank">#3 · Signal 99</div>
   <strong>Sonia Citron</strong>
   <div class="detail-line">Washington Mystics</div>
-  <div class="detail-line">25.0 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 24</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#4 · 99</div>
+  <div class="rank">#4 · Signal 99</div>
   <strong>Allisha Gray</strong>
   <div class="detail-line">Atlanta Dream</div>
-  <div class="detail-line">25.1 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 24.5</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#5 · 99</div>
+  <div class="rank">#5 · Signal 99</div>
   <strong>Kelsey Mitchell</strong>
   <div class="detail-line">Indiana Fever</div>
-  <div class="detail-line">24.8 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 24</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#6 · 99</div>
+  <div class="rank">#6 · Signal 99</div>
   <strong>Kahleah Copper</strong>
   <div class="detail-line">Phoenix Mercury</div>
-  <div class="detail-line">24.6 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 24</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#7 · 98</div>
+  <div class="rank">#7 · Signal 98</div>
   <strong>Angel Reese</strong>
   <div class="detail-line">Atlanta Dream</div>
-  <div class="detail-line">29.4 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 28.5</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#8 · 97</div>
+  <div class="rank">#8 · Signal 97</div>
   <strong>Courtney Williams</strong>
   <div class="detail-line">Minnesota Lynx</div>
-  <div class="detail-line">26.4 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 25.5</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#9 · 97</div>
+  <div class="rank">#9 · Signal 97</div>
   <strong>Olivia Miles</strong>
   <div class="detail-line">Minnesota Lynx</div>
-  <div class="detail-line">29.1 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 28.5</div>
 </article>
 <article class="strip-card">
-  <div class="rank">#10 · 95</div>
+  <div class="rank">#10 · Signal 95</div>
   <strong>Kayla McBride</strong>
   <div class="detail-line">Minnesota Lynx</div>
-  <div class="detail-line">20.9 PRA</div>
+  <div class="detail-line">PRA Over &lt;= 20</div>
 </article></div>
     <footer>
       Injured/listed players are removed before ranking. Odds are display-only and depend on The Odds API or local CSV availability. Check current sportsbook lines before placing any bet.
