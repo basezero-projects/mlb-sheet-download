@@ -200,17 +200,17 @@
 
     .play-row {
       display: grid;
-      grid-template-columns: 21px 1fr auto;
-      gap: 5px;
-      align-items: center;
-      min-height: 47px;
-      padding: 5px 6px;
+      grid-template-columns: 24px minmax(0, 1fr) auto;
+      gap: 7px;
+      align-items: start;
+      min-height: 70px;
+      padding: 7px 7px;
       border-top: 1px solid rgba(255, 255, 255, .13);
     }
 
     .badge {
-      width: 21px;
-      height: 21px;
+      width: 24px;
+      height: 24px;
       display: grid;
       place-items: center;
       border-radius: 50%;
@@ -220,25 +220,43 @@
       font-size: 8px;
       font-weight: 900;
       letter-spacing: -.04em;
+      margin-top: 1px;
     }
 
     .play-name {
       min-width: 0;
       text-transform: uppercase;
-      line-height: .95;
       font-weight: 900;
-      font-size: clamp(11px, 2.8vw, 17px);
+      line-height: 1;
+    }
+
+    .play-name strong {
+      display: block;
+      color: white;
+      font-size: clamp(12px, 2.75vw, 18px);
+      line-height: .98;
     }
 
     .play-name span {
       display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 9px;
+      margin-top: 4px;
+    }
+
+    .play-team {
+      color: color-mix(in srgb, var(--accent) 74%, white);
+      font-size: clamp(9px, 2.05vw, 12px);
       line-height: 1.05;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: visible;
+    }
+
+    .play-meta {
+      color: var(--muted);
+      font-size: clamp(8px, 1.95vw, 11px);
+      line-height: 1.15;
+      white-space: normal;
+      overflow: visible;
+      text-transform: uppercase;
     }
 
     .score-tag {
@@ -246,6 +264,8 @@
       font-family: Impact, "Arial Black", sans-serif;
       font-size: clamp(13px, 3.2vw, 19px);
       text-shadow: 0 0 10px color-mix(in srgb, var(--accent) 50%, transparent);
+      line-height: 1;
+      padding-top: 1px;
     }
 
     .parlay {
@@ -267,7 +287,7 @@
       display: grid;
       grid-template-columns: 18px 1fr;
       gap: 6px;
-      align-items: center;
+      align-items: start;
       margin-bottom: 6px;
       text-transform: uppercase;
       font-weight: 900;
@@ -284,6 +304,21 @@
       background: var(--accent);
       color: #02101f;
       font-family: Impact, "Arial Black", sans-serif;
+    }
+
+    .leg strong {
+      display: block;
+      color: white;
+      line-height: .95;
+    }
+
+    .leg em {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-style: normal;
+      font-size: 8px;
+      line-height: 1.05;
     }
 
     .parlay-score {
@@ -344,6 +379,15 @@
       line-height: .9;
     }
 
+    .spot-player small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 9px;
+      line-height: 1.1;
+    }
+
     .spot-player span {
       display: block;
       color: var(--accent);
@@ -402,6 +446,16 @@
       line-height: .95;
     }
 
+    .strip-card em {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-style: normal;
+      text-transform: uppercase;
+      font-size: clamp(6px, 1.6vw, 9px);
+      line-height: 1.05;
+    }
+
     .strip-card strong {
       display: block;
       margin-top: 3px;
@@ -441,9 +495,9 @@
     @media (max-width: 520px) {
       .sheet {
         padding-inline: 6px;
-        width: 390px;
-        max-width: 100%;
-        margin: 0;
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0 auto;
       }
 
       .hero {
@@ -463,6 +517,7 @@
       }
 
       .summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 4px;
       }
 
@@ -476,6 +531,7 @@
       }
 
       .target-grid, .parlay-grid {
+        grid-template-columns: 1fr;
         gap: 5px;
       }
 
@@ -485,23 +541,28 @@
       }
 
       .play-row {
-        grid-template-columns: 18px 1fr;
-        min-height: 51px;
-        padding: 5px 4px;
+        grid-template-columns: 22px minmax(0, 1fr) auto;
+        min-height: 78px;
+        padding: 7px 5px;
+        gap: 6px;
       }
 
       .play-row .score-tag {
-        grid-column: 2;
-        font-size: 12px;
+        grid-column: 3;
+        font-size: 14px;
         line-height: 1;
       }
 
-      .play-name {
-        font-size: clamp(9px, 2.35vw, 11px);
+      .play-name strong {
+        font-size: clamp(11px, 3.2vw, 14px);
       }
 
-      .play-name span {
-        font-size: 7px;
+      .play-team {
+        font-size: clamp(8px, 2.45vw, 10px);
+      }
+
+      .play-meta {
+        font-size: clamp(7px, 2.2vw, 9px);
       }
 
       .parlay .box-title {
@@ -509,12 +570,16 @@
       }
 
       .leg {
-        font-size: clamp(8px, 2.25vw, 10px);
+        font-size: clamp(9px, 2.7vw, 12px);
+      }
+
+      .leg em {
+        font-size: 7px;
       }
 
       .badge {
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height: 22px;
         font-size: 7px;
       }
 
@@ -527,7 +592,7 @@
       }
 
       .strip {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   </style>
@@ -545,7 +610,7 @@
       <div><strong>14</strong>SP known</div>
       <div><strong>0</strong>Lineups</div>
       <div><strong>12</strong>Reunion</div>
-      <div><strong>8</strong>HR odds</div>
+      <div><strong>14</strong>HR odds</div>
       <div><strong>6</strong>Inj filter</div>
     </section>
 
@@ -556,25 +621,41 @@
         
         <div class="play-row">
           <div class="badge">PP</div>
-          <div class="play-name">Bryce Harper<span>Philadelphia Phillies vs Miles Mikolas - 17 HR, 7.0% split, former team, projected</span></div>
+          <div class="play-name">
+            <strong>Bryce Harper</strong>
+            <span class="play-team">Philadelphia Phillies</span>
+            <span class="play-meta">vs Miles Mikolas - 17 HR, 7.0% split, former team, projected</span>
+          </div>
           <div class="score-tag">93</div>
         </div>
     
         <div class="play-row">
           <div class="badge">BRS</div>
-          <div class="play-name">Willson Contreras<span>Boston Red Sox vs Kyle Freeland - 16 HR, 6.5% split, projected</span></div>
+          <div class="play-name">
+            <strong>Willson Contreras</strong>
+            <span class="play-team">Boston Red Sox</span>
+            <span class="play-meta">vs Kyle Freeland - 16 HR, 6.5% split, projected</span>
+          </div>
           <div class="score-tag">94</div>
         </div>
     
         <div class="play-row">
           <div class="badge">WN</div>
-          <div class="play-name">CJ Abrams<span>Washington Nationals vs Aaron Nola - 17 HR, 5.9% split, projected</span></div>
+          <div class="play-name">
+            <strong>CJ Abrams</strong>
+            <span class="play-team">Washington Nationals</span>
+            <span class="play-meta">vs Aaron Nola - 17 HR, 5.9% split, projected</span>
+          </div>
           <div class="score-tag">92</div>
         </div>
     
         <div class="play-row">
           <div class="badge">HA</div>
-          <div class="play-name">Yordan Alvarez<span>Houston Astros vs Trey Yesavage - 25 HR, 6.7% split, projected</span></div>
+          <div class="play-name">
+            <strong>Yordan Alvarez</strong>
+            <span class="play-team">Houston Astros</span>
+            <span class="play-meta">vs Trey Yesavage - 25 HR, 6.7% split, projected</span>
+          </div>
           <div class="score-tag">90</div>
         </div>
     
@@ -586,25 +667,41 @@
         
         <div class="play-row">
           <div class="badge">ATH</div>
-          <div class="play-name">Nick Kurtz<span>Athletics vs Tyler Mahle - 19 HR, 5.4% split, projected</span></div>
+          <div class="play-name">
+            <strong>Nick Kurtz</strong>
+            <span class="play-team">Athletics</span>
+            <span class="play-meta">vs Tyler Mahle - 19 HR, 5.4% split, projected</span>
+          </div>
           <div class="score-tag">90</div>
         </div>
     
         <div class="play-row">
           <div class="badge">ATH</div>
-          <div class="play-name">Shea Langeliers<span>Athletics vs Tyler Mahle - 19 HR, 5.0% split, projected</span></div>
+          <div class="play-name">
+            <strong>Shea Langeliers</strong>
+            <span class="play-team">Athletics</span>
+            <span class="play-meta">vs Tyler Mahle - 19 HR, 5.0% split, projected</span>
+          </div>
           <div class="score-tag">87</div>
         </div>
     
         <div class="play-row">
           <div class="badge">WN</div>
-          <div class="play-name">Luis Jr.<span>Washington Nationals vs Aaron Nola - 12 HR, 4.4% split, projected</span></div>
+          <div class="play-name">
+            <strong>Luis Jr.</strong>
+            <span class="play-team">Washington Nationals</span>
+            <span class="play-meta">vs Aaron Nola - 12 HR, 4.4% split, projected</span>
+          </div>
           <div class="score-tag">83</div>
         </div>
     
         <div class="play-row">
           <div class="badge">CR</div>
-          <div class="play-name">Mickey Moniak<span>Colorado Rockies vs Ranger Suarez - 12 HR, 6.7% split, projected</span></div>
+          <div class="play-name">
+            <strong>Mickey Moniak</strong>
+            <span class="play-team">Colorado Rockies</span>
+            <span class="play-meta">vs Ranger Suarez - 12 HR, 6.7% split, projected</span>
+          </div>
           <div class="score-tag">85</div>
         </div>
     
@@ -616,25 +713,41 @@
         
         <div class="play-row">
           <div class="badge">BRS</div>
-          <div class="play-name">Marcelo Mayer<span>Boston Red Sox vs Kyle Freeland - 3 HR, 11.8% split, projected</span></div>
+          <div class="play-name">
+            <strong>Marcelo Mayer</strong>
+            <span class="play-team">Boston Red Sox</span>
+            <span class="play-meta">vs Kyle Freeland - 3 HR, 11.8% split, projected</span>
+          </div>
           <div class="score-tag">52</div>
         </div>
     
         <div class="play-row">
           <div class="badge">CG</div>
-          <div class="play-name">David Fry<span>Cleveland Guardians vs Erick Fedde - 4 HR, 4.5% split, projected</span></div>
+          <div class="play-name">
+            <strong>David Fry</strong>
+            <span class="play-team">Cleveland Guardians</span>
+            <span class="play-meta">vs Erick Fedde - 4 HR, 4.5% split, projected</span>
+          </div>
           <div class="score-tag">60</div>
         </div>
     
         <div class="play-row">
           <div class="badge">CWS</div>
-          <div class="play-name">Colson Montgomery<span>Chicago White Sox vs Tanner Bibee - 20 HR, 6.0% split, projected</span></div>
+          <div class="play-name">
+            <strong>Colson Montgomery</strong>
+            <span class="play-team">Chicago White Sox</span>
+            <span class="play-meta">vs Tanner Bibee - +340 BetRivers, 6.0% split, projected</span>
+          </div>
           <div class="score-tag">77</div>
         </div>
     
         <div class="play-row">
           <div class="badge">TR</div>
-          <div class="play-name">Justin Foscue<span>Texas Rangers vs Eury Pérez - 4 HR, 4.0% split, projected</span></div>
+          <div class="play-name">
+            <strong>Justin Foscue</strong>
+            <span class="play-team">Texas Rangers</span>
+            <span class="play-meta">vs Eury Pérez - 4 HR, 4.0% split, projected</span>
+          </div>
           <div class="score-tag">75</div>
         </div>
     
@@ -646,25 +759,41 @@
         
         <div class="play-row">
           <div class="badge">WN</div>
-          <div class="play-name">James Wood<span>Washington Nationals vs Aaron Nola - 20 HR, 6.0% split, projected</span></div>
+          <div class="play-name">
+            <strong>James Wood</strong>
+            <span class="play-team">Washington Nationals</span>
+            <span class="play-meta">vs Aaron Nola - 20 HR, 6.0% split, projected</span>
+          </div>
           <div class="score-tag">87</div>
         </div>
     
         <div class="play-row">
           <div class="badge">MT</div>
-          <div class="play-name">Byron Buxton<span>Minnesota Twins vs Shohei Ohtani - 25 HR, 9.4% split, projected</span></div>
+          <div class="play-name">
+            <strong>Byron Buxton</strong>
+            <span class="play-team">Minnesota Twins</span>
+            <span class="play-meta">vs Shohei Ohtani - 25 HR, 9.4% split, projected</span>
+          </div>
           <div class="score-tag">84</div>
         </div>
     
         <div class="play-row">
           <div class="badge">ATH</div>
-          <div class="play-name">Zack Gelof<span>Athletics vs Tyler Mahle - 11 HR, 4.8% split, projected</span></div>
+          <div class="play-name">
+            <strong>Zack Gelof</strong>
+            <span class="play-team">Athletics</span>
+            <span class="play-meta">vs Tyler Mahle - 11 HR, 4.8% split, projected</span>
+          </div>
           <div class="score-tag">80</div>
         </div>
     
         <div class="play-row">
           <div class="badge">TBJ</div>
-          <div class="play-name">Kazuma Okamoto<span>Toronto Blue Jays vs Mike Burrows - 17 HR, 5.4% split, projected</span></div>
+          <div class="play-name">
+            <strong>Kazuma Okamoto</strong>
+            <span class="play-team">Toronto Blue Jays</span>
+            <span class="play-meta">vs Mike Burrows - 17 HR, 5.4% split, projected</span>
+          </div>
           <div class="score-tag">79</div>
         </div>
     
@@ -676,28 +805,28 @@
       
       <article class="box parlay" style="--accent:var(--green)">
         <div class="box-title">2 Leg HR Parlay</div>
-        <div class="legs"><div class="leg"><span>1</span>Bryce Harper</div><div class="leg"><span>2</span>Willson Contreras</div></div>
+        <div class="legs"><div class="leg"><span>1</span><div><strong>Bryce Harper</strong><em>Philadelphia Phillies</em></div></div><div class="leg"><span>2</span><div><strong>Willson Contreras</strong><em>Boston Red Sox</em></div></div></div>
         <div class="parlay-score"><small>AVG HR SCORE</small>94</div>
       </article>
     
       
       <article class="box parlay" style="--accent:var(--orange)">
         <div class="box-title">3 Leg HR Parlay</div>
-        <div class="legs"><div class="leg"><span>1</span>Nick Kurtz</div><div class="leg"><span>2</span>Shea Langeliers</div><div class="leg"><span>3</span>Luis Jr.</div></div>
+        <div class="legs"><div class="leg"><span>1</span><div><strong>Nick Kurtz</strong><em>Athletics</em></div></div><div class="leg"><span>2</span><div><strong>Shea Langeliers</strong><em>Athletics</em></div></div><div class="leg"><span>3</span><div><strong>Luis Jr.</strong><em>Washington Nationals</em></div></div></div>
         <div class="parlay-score"><small>AVG HR SCORE</small>87</div>
       </article>
     
       
       <article class="box parlay" style="--accent:var(--blue)">
         <div class="box-title">4 Leg HR Parlay</div>
-        <div class="legs"><div class="leg"><span>1</span>CJ Abrams</div><div class="leg"><span>2</span>Yordan Alvarez</div><div class="leg"><span>3</span>Mickey Moniak</div><div class="leg"><span>4</span>James Wood</div></div>
+        <div class="legs"><div class="leg"><span>1</span><div><strong>CJ Abrams</strong><em>Washington Nationals</em></div></div><div class="leg"><span>2</span><div><strong>Yordan Alvarez</strong><em>Houston Astros</em></div></div><div class="leg"><span>3</span><div><strong>Mickey Moniak</strong><em>Colorado Rockies</em></div></div><div class="leg"><span>4</span><div><strong>James Wood</strong><em>Washington Nationals</em></div></div></div>
         <div class="parlay-score"><small>AVG HR SCORE</small>88</div>
       </article>
     
       
       <article class="box parlay" style="--accent:var(--purple)">
         <div class="box-title">6 Leg Lotto</div>
-        <div class="legs"><div class="leg"><span>1</span>Byron Buxton</div><div class="leg"><span>2</span>Zack Gelof</div><div class="leg"><span>3</span>Kazuma Okamoto</div><div class="leg"><span>4</span>Marcelo Mayer</div><div class="leg"><span>5</span>David Fry</div><div class="leg"><span>6</span>Colson Montgomery</div></div>
+        <div class="legs"><div class="leg"><span>1</span><div><strong>Byron Buxton</strong><em>Minnesota Twins</em></div></div><div class="leg"><span>2</span><div><strong>Zack Gelof</strong><em>Athletics</em></div></div><div class="leg"><span>3</span><div><strong>Kazuma Okamoto</strong><em>Toronto Blue Jays</em></div></div><div class="leg"><span>4</span><div><strong>Marcelo Mayer</strong><em>Boston Red Sox</em></div></div><div class="leg"><span>5</span><div><strong>David Fry</strong><em>Cleveland Guardians</em></div></div><div class="leg"><span>6</span><div><strong>Colson Montgomery</strong><em>Chicago White Sox</em></div></div></div>
         <div class="parlay-score"><small>AVG HR SCORE</small>72</div>
       </article>
     
@@ -709,7 +838,7 @@
         <div class="box-title">Favorite Value</div>
         <div class="spot-player">
           <div class="spot-avatar">BRS</div>
-          <div><strong>Marcelo Mayer</strong><span>52</span></div>
+          <div><strong>Marcelo Mayer</strong><small>Boston Red Sox</small><span>52</span></div>
         </div>
       </article>
     
@@ -718,7 +847,7 @@
         <div class="box-title">Sneaky Play</div>
         <div class="spot-player">
           <div class="spot-avatar">WN</div>
-          <div><strong>James Wood</strong><span>87</span></div>
+          <div><strong>James Wood</strong><small>Washington Nationals</small><span>87</span></div>
         </div>
       </article>
     
@@ -727,7 +856,7 @@
         <div class="box-title">Fade</div>
         <div class="spot-player">
           <div class="spot-avatar">TBJ</div>
-          <div><strong>George Springer</strong><span>63</span></div>
+          <div><strong>George Springer</strong><small>Toronto Blue Jays</small><span>63</span></div>
         </div>
       </article>
     
@@ -740,60 +869,70 @@
         <div class="strip-card">
           <b>1</b>
           <span>Bryce Harper</span>
+          <em>Philadelphia Phillies</em>
           <strong>93</strong>
         </div>
     
         <div class="strip-card">
           <b>2</b>
           <span>Willson Contreras</span>
+          <em>Boston Red Sox</em>
           <strong>94</strong>
         </div>
     
         <div class="strip-card">
           <b>3</b>
           <span>CJ Abrams</span>
+          <em>Washington Nationals</em>
           <strong>92</strong>
         </div>
     
         <div class="strip-card">
           <b>4</b>
           <span>Yordan Alvarez</span>
+          <em>Houston Astros</em>
           <strong>90</strong>
         </div>
     
         <div class="strip-card">
           <b>5</b>
           <span>Nick Kurtz</span>
+          <em>Athletics</em>
           <strong>90</strong>
         </div>
     
         <div class="strip-card">
           <b>6</b>
           <span>Shea Langeliers</span>
+          <em>Athletics</em>
           <strong>87</strong>
         </div>
     
         <div class="strip-card">
           <b>7</b>
           <span>Luis Jr.</span>
+          <em>Washington Nationals</em>
           <strong>83</strong>
         </div>
     
         <div class="strip-card">
           <b>8</b>
           <span>Mickey Moniak</span>
+          <em>Colorado Rockies</em>
           <strong>85</strong>
         </div>
     
         <div class="strip-card">
           <b>9</b>
           <span>James Wood</span>
+          <em>Washington Nationals</em>
           <strong>87</strong>
         </div>
     
         <div class="strip-card">
           <b>10</b>
           <span>Byron Buxton</span>
+          <em>Minnesota Twins</em>
           <strong>84</strong>
         </div>
     
@@ -802,7 +941,7 @@
 
     <footer class="disclaimer">
       <b>!</b>
-      <span>Scores are signal ranks, not sportsbook odds. Check current lines, books, and confirmed lineups before placing anything. Refreshed 2026-06-24 03:08:45.</span>
+      <span>Scores are signal ranks, not sportsbook odds. Check current lines, books, and confirmed lineups before placing anything. Refreshed 2026-06-24 03:42:18.</span>
       <div class="logo">BO<br>MLB</div>
     </footer>
   </main>
